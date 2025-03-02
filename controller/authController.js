@@ -1,26 +1,29 @@
 const { mongo } = require('mongoose');
 const { Auth } = require('../model/model');
+const playerController = require('./playerController');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const authController = {
     register: async (req, res) => {
         try {
-            const salt = await bcryptjs.genSalt(10);
-            const hashed = await bcryptjs.hash(req.body.password, salt);
-
-            const newAuth = new Auth({
-                userName: req.body.userName,
-                email: req.body.email,
-                password: hashed
-            });
-
-            const checkAcc = await Auth.findOne({ userName: newAuth.userName });
+            const checkAcc = await Auth.findOne({ userName: req.body.userName });
 
             if (checkAcc) {
                 return res.status(400).json({ msg: 'User already exists' });
             }
 
+            const newPlayer = await playerController.create();
+
+            const salt = await bcryptjs.genSalt(10);
+            const hashed = await bcryptjs.hash(req.body.password, salt);
+            const newAuth = new Auth({
+                userName: req.body.userName,
+                email: req.body.email,
+                password: hashed,
+                playerId: newPlayer._id
+            });
+            
             await newAuth.save();
             res.status(200).json({ msg: 'Register successfully' });
         } catch (err) {
@@ -49,6 +52,7 @@ const authController = {
     },
     login: async (req, res) => {
         try {
+            console.log(req.body);
             const user = await Auth.findOne({ userName: req.body.userName });
             if (!user) {
                 return res.status(404).json('Wrong username');

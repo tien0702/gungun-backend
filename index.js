@@ -8,6 +8,10 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 
 const authRouter = require('./routes/auth');
+const playerRouter = require('./routes/player');
+const weaponRouter = require('./routes/weapon');
+const equipmentRouter = require('./routes/equipment');
+const equipmentSetRouter = require('./routes/equipmentSet');
 
 // Connect to MongoDB
 dotenv.config();
@@ -33,6 +37,10 @@ app.use(express.json());
 
 //Routes
 app.use('/auth', authRouter);
+app.use('/player', playerRouter);
+app.use('/weapon', weaponRouter);
+app.use('/equipment', equipmentRouter);
+app.use('/equipmentSet', equipmentSetRouter);
 
 app.listen(3000, () => {
     console.log('Server is running...');
