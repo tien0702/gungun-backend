@@ -88,7 +88,7 @@ const playerController = {
                 },
                 {
                     new: true,
-                    arrayFilters: [{ "elem.weaponId": req.body.weaponId }]
+                    arrayFilters: [{ "elem._id": req.body.weaponId }]
                 }
             );
             res.status(200).json(updatePlayer);
@@ -106,7 +106,7 @@ const playerController = {
                 },
                 {
                     new: true,
-                    arrayFilters: [{ "elem.equipmentId": req.body.equipmentId }]
+                    arrayFilters: [{ "elem._id": req.body.equipmentId }]
                 }
             );
             res.status(200).json(updatePlayer);
@@ -115,13 +115,31 @@ const playerController = {
             res.status(500).json({ error: err.message });
         }
     },
+    equipEquipment: async (req, res) => {
+        try {
+            const updatePlayer = await Player.findOneAndUpdate(
+                { _id: req.body.playerId },
+                {
+                    $set: {
+                        "equipEquipped": req.body.equipmentId
+                    }
+                },
+                { new: true }
+            );
+            res.status(200).json(updatePlayer);
+        }
+        catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }
+    ,
     equipWeapon: async (req, res) => {
         try {
             const updatePlayer = await Player.findOneAndUpdate(
                 { _id: req.body.playerId },
                 {
                     $set: {
-                        [`equipped.${req.body.location}`]: req.body.locationId
+                        "weapEquipped": req.body.weaponId
                     }
                 },
                 { new: true }

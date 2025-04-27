@@ -7,5 +7,6 @@ router.post('/collectWeapon', playerController.collectWeapon);
 router.post('/collectEquipment', playerController.collectEquipment);
 router.post('/addExpWeapon', playerController.addExpWeapon);
 router.post('/addExpEquipment', playerController.addExpEquipment);
+router.post('/equipWeapon', playerController.equipWeapon);
 
 module.exports = router;

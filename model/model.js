@@ -197,12 +197,11 @@ const playerSchema = new mongoose.Schema({
     ownEquipments: [playerEquipmentSchema],
     ownWeapons: [playerWeaponSchema],
     equipped: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'PlayerEquipment'
+        type: String
     }],
     weapEquipped: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'PlayerWeapon'
+        type: String,
+        ref: '1'
     },
 });
 
