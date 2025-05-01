@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 
-const authRouter = require('../routes/auth');
-const userRouter = require('../routes/user');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 // Connect to MongoDB
 dotenv.config();
