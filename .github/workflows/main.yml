@@ -1,0 +1,24 @@
+name: GunGun Deployment
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deloys:
+    runs-on: ubunty-latest
+    steps:
+    - name: Deloy using ssh
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.GUNGUN_HOST }}
+        username: ${{ secrets.GUNGUN_USERNAME }}
+        password: ${{ secrets.GUNGUN_PASSWORD }}
+        port: 22
+        script: |
+          cd /home/gungun-backend
+          git fetch origin
+          git checkout main
+          git pull
+          npm install
+          npm run build
+          pm2 reload 
