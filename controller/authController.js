@@ -1,6 +1,6 @@
 const { mongo } = require('mongoose');
 const { Auth } = require('../model/model');
-const playerController = require('./playerController');
+const userController = require('./userController');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -13,7 +13,7 @@ const authController = {
                 return res.status(400).json({ msg: 'User already exists' });
             }
 
-            const newPlayer = await playerController.create();
+            const newUser = await userController.create();
 
             const salt = await bcryptjs.genSalt(10);
             const hashed = await bcryptjs.hash(req.body.password, salt);
@@ -21,7 +21,7 @@ const authController = {
                 userName: req.body.userName,
                 email: req.body.email,
                 password: hashed,
-                playerId: newPlayer._id
+                playerId: newUser._id
             });
             
             await newAuth.save();
@@ -37,7 +37,7 @@ const authController = {
                 role: user.role
             }, process.env.JWT_ACCESS_KEY,
             {
-                expiresIn: '30m'
+                expiresIn: '30d'
             });
     },
     genRefreshToken: (user) => {
