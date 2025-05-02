@@ -36,7 +36,7 @@ app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
-app.listen(3000, () => {
+app.listen(3200, () => {
     console.log('Server is running...');
 });
 
