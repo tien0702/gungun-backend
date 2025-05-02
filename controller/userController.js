@@ -8,24 +8,24 @@ const userController = {
             Exp: 0,
             Gems: 1000,
             Equipments: [{
-                LocationId: 'weapon_1',
+                LocationId: 'weapon_0',
                 Star: 1,
                 Status: 0,
                 TakeAt: Date.now()
             },
             {
-                LocationId: 'shirt_1',
+                LocationId: 'shirt_0',
                 Star: 1,
                 Status: 0,
                 TakeAt: Date.now()
             },
             {
-                LocationId: 'skirt_1',
+                LocationId: 'skirt_0',
                 Star: 1,
                 Status: 0,
                 TakeAt: Date.now()
             }],
-            Equippings: ['weapon_1', 'shirt_1', 'skirt_1'],
+            Equippings: ['weapon_0', 'shirt_0', 'skirt_0'],
         });
     },
     update: async (req, res) => {
