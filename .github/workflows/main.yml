@@ -5,7 +5,7 @@ on:
 
 jobs:
   deloy:
-    runs-on: ubunty-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Deloy using ssh
       uses: appleboy/ssh-action@master
