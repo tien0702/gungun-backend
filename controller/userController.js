@@ -38,6 +38,9 @@ const userController = {
                 return res.status(404).json({ error: 'User not found' });
             }
 
+            // Prevent changing PlayerName if it already exists
+            if (updateData.PlayerName  !== undefined) user.PlayerName = updateData.PlayerName;
+
             // Update simple fields
             if (updateData.Exp !== undefined) user.Exp = updateData.Exp;
             if (updateData.Gems !== undefined) user.Gems = updateData.Gems;
