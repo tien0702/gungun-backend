@@ -39,9 +39,7 @@ const userController = {
             }
 
             // Prevent changing PlayerName if it already exists
-            if (updateData.PlayerName && user.PlayerName) {
-                return res.status(400).json({ error: 'PlayerName is already set and cannot be updated' });
-            }
+            if (updateData.PlayerName  !== undefined) user.PlayerName = updateData.PlayerName;
 
             // Update simple fields
             if (updateData.Exp !== undefined) user.Exp = updateData.Exp;
