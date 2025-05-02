@@ -1,5 +1,5 @@
 const { mongo } = require('mongoose');
-const { Auth } = require('../model/model');
+const { Auth, User } = require('../model/model');
 const userController = require('./userController');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -21,7 +21,7 @@ const authController = {
                 userName: req.body.userName,
                 email: req.body.email,
                 password: hashed,
-                playerId: newUser._id
+                userId: newUser._id
             });
             
             await newAuth.save();
@@ -52,25 +52,24 @@ const authController = {
     },
     login: async (req, res) => {
         try {
-            console.log(req.body);
-            const user = await Auth.findOne({ userName: req.body.userName });
-            if (!user) {
+            const auth = await Auth.findOne({ userName: req.body.userName });
+            if (!auth) {
                 return res.status(404).json('Wrong username');
             }
 
-            const validPassword = await bcryptjs.compare(req.body.password, user.password);
+            const validPassword = await bcryptjs.compare(req.body.password, auth.password);
             if (!validPassword) {
                 return res.status(400).json('Wrong password');
             }
 
-            if (user.status === -1) {
+            if (auth.status === -1) {
                 return res.status(400).json('Account is locked');
             }
 
-            if (user && validPassword) {
-                const accessToken = authController.genAccessToken(user);
-                const refreshToken = authController.genRefreshToken(user);
-                const { password, ...info } = user._doc;
+            if (auth && validPassword) {
+                const accessToken = authController.genAccessToken(auth);
+                const refreshToken = authController.genRefreshToken(auth);
+                const { password, ...info } = auth._doc;
                 res.status(200).json({ ...info, accessToken, refreshToken });
             }
         } catch (err) {

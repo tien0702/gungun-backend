@@ -23,7 +23,7 @@ const authSchema = new mongoose.Schema({
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Player'
+        ref: 'User'
     }
     ,
     createAt: {
