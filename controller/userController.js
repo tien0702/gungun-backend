@@ -6,7 +6,7 @@ const userController = {
         return await User.create({
             PlayerName: 'Player',
             Exp: 0,
-            Gems: 1000,
+            Gems: 25700,
             Equipments: [{
                 LocationId: 'weapon_0',
                 Star: 1,
@@ -39,7 +39,7 @@ const userController = {
             }
 
             // Prevent changing PlayerName if it already exists
-            if (updateData.PlayerName  !== undefined) user.PlayerName = updateData.PlayerName;
+            if (updateData.PlayerName !== undefined) user.PlayerName = updateData.PlayerName;
 
             // Update simple fields
             if (updateData.Exp !== undefined) user.Exp = updateData.Exp;
