@@ -10,7 +10,7 @@ const authController = {
             const checkAcc = await Auth.findOne({ userName: req.body.userName });
 
             if (checkAcc) {
-                return res.status(400).json({ msg: 'User already exists' });
+                return res.status(400).json('User already exists');
             }
 
             const newUser = await userController.create();
@@ -23,9 +23,9 @@ const authController = {
                 password: hashed,
                 userId: newUser._id
             });
-            
+
             await newAuth.save();
-            res.status(200).json({ msg: 'Register successfully' });
+            res.status(200).json('Register successfully');
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
